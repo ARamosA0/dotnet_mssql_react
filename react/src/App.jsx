@@ -3,18 +3,24 @@ import './App.css'
 import { Card, CardContent, CardActions, Typography, Button } from '@mui/material'
 import axios from "axios"
 function App() {
+  // Usar con le localhost
   const URL = 'http://localhost:5000/products'
+  // cambiar con la url del docker play
+  const URLDOCKERPLAY = 'http://ip172-18-0-3-ckqnu1csnmng00aleddg-5000.direct.labs.play-with-docker.com/products'
   const [items, setItems] = useState([]);
   const getinfo = async () => {
     const res = await axios
-      .get(URL)
+      // Cambiar la url en esta linea
+      .get(URLDOCKERPLAY)
       .catch((error) => console.log({ error }))
-    setItems(res)
-    return res
+    setItems(res.data)
+    console.log(res.data)
+    return res.data
   }
 
   useEffect(() => {
     getinfo();
+    console.log(items)
   })
 
   return (

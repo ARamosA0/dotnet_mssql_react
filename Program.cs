@@ -1,9 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using WebApiEntityFrameworkDockerSqlServer.Data;
 
+var  policyName = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: policyName,
+                      builder =>
+                      {
+                          builder
+                            .WithOrigins("*") // specifying the allowed origin
+                            .WithMethods("GET") // defining the allowed HTTP method
+                            .AllowAnyHeader(); // allowing any header to be sent
+                      });
+});
+
 
 builder.Services.AddControllers();
 
@@ -21,8 +34,7 @@ using(var scope = app.Services.CreateScope())
 
 // Configure the HTTP request pipeline.
 
+app.UseCors(policyName);
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
