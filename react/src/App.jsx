@@ -22,15 +22,21 @@ function App() {
       <p>PRODUCTOS</p>
 
       <div>
-        {items.map(((item, index) => (
-
-          <Card key={index}>
+        {items.map((item) => (
+          <Card key={item.productId}>
             <CardContent>
-              {item.name}
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                {item.name}
+              </Typography>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                {item.description}
+              </Typography>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                {item.price}
+              </Typography>
             </CardContent>
           </Card>
-
-        )))}
+        ))}
       </div>
     </>
   )
