@@ -11,7 +11,7 @@ function App() {
   const getinfo = async () => {
     const res = await axios
       // Cambiar la url en esta linea
-      .get(URLDOCKERPLAY)
+      .get(URL)
       .catch((error) => console.log({ error }))
     setItems(res.data)
     console.log(res.data)
