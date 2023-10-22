@@ -2,11 +2,7 @@
 version: "3.9"  # optional since v1.27.0
 services:
    
-  web_api:
-    build: . # build the Docker image 
-    container_name: web_api_application
-    ports:
-      - "5000:80"
+  
   sql:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     container_name: sql_server2022
@@ -16,12 +12,22 @@ services:
       - ACCEPT_EULA=y
       - SA_PASSWORD=A&VeryComplex123Password
 
+  web_api:
+    build: . # build the Docker image 
+    container_name: web_api_application
+    ports:
+      - "5000:80"
+    depends_on:
+      - sql
+
   react:
     build: ./react
     ports:
       - "8000:8000"
     volumes:
       - exclude:/front/node_modules/
+      - react:/react
 
 volumes:
   exclude:
+  react:
